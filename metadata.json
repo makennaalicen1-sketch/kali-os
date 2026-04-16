@@ -1,0 +1,6 @@
+{
+  "name": "CyberDefense Hub",
+  "description": "An educational cybersecurity platform for learning defensive security, authentication best practices, and vulnerability management.",
+  "requestFramePermissions": ["camera", "geolocation"],
+  "majorCapabilities": []
+}

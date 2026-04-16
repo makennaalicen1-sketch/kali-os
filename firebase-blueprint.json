@@ -1,0 +1,48 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "Stores user profile information and security settings.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "lastLogin": { "type": "string", "format": "date-time" },
+        "securityPreferences": {
+          "type": "object",
+          "properties": {
+            "vpnAutoConnect": { "type": "boolean" },
+            "mfaEnabled": { "type": "boolean" }
+          }
+        }
+      },
+      "required": ["uid", "email"]
+    },
+    "security_logs": {
+      "title": "Security Log",
+      "description": "Records security-related events for the user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "event": { "type": "string" },
+        "type": { "type": "string", "enum": ["info", "warn", "crit"] },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "details": { "type": "string" }
+      },
+      "required": ["userId", "event", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "Private user profile data."
+    },
+    "/users/{userId}/logs/{logId}": {
+      "schema": "security_logs",
+      "description": "User-specific security event logs."
+    }
+  }
+}
